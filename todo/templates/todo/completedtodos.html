@@ -1,9 +1,9 @@
 {% extends 'todo/base.html' %}
 
 {% block content %}
-Completed
-
-<ul>
+<h1>Completed Todo's</h1>
+<br />
+<ul class="todolist">
   {% for todo in todos %}
   <li>
     <a href="{% url 'viewtodo' todo.id %}">
@@ -13,6 +13,7 @@ Completed
     {% if todo.memo %}
      - {{ todo.memo }}
     {% endif %}
+    <br />
     {{ todo.datecompleted|date:'M j Y H:i' }}
     </a>
   </li>

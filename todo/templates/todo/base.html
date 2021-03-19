@@ -1,26 +1,64 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
 
-{% if user.is_authenticated %}
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static "todo/custom.css" %}">
 
-Logged In as {{ user.username }}
+  <title>Todo Yeah!</title>
+</head>
 
-<a href="{% url 'createtodo' %}">Create</a>
-<a href="{% url 'currenttodos' %}">Current</a>
-<a href="{% url 'completedtodos' %}">Completed</a>
+<body>
+  {% if user.is_authenticated %}
 
+  <nav id="topNav" class="navbar navbar-expand navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+    <div class="collapse navbar-collapse" id=navbarNav>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'createtodo' %}">Create</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'currenttodos' %}">Current</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'completedtodos' %}">Completed</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Logged In as {{ user.username }}</a>
+        </li>
+      </ul>
+      <form action="{% url 'logoutuser' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-warning">Logout</button>
+      </form>
+    </div>
+  </nav>
 
-<form action="{% url 'logoutuser' %}" method="POST">
-  {% csrf_token %}
-  <button type="submit">Logout</button>
-</form>
+  {% else %}
+  <nav id="topNav" class="navbar navbar-expand navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'currenttodos' %}">Home</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'signupuser' %}" method="POST">Sign Up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'loginuser' %}" method="POST">Login</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  {% endif %}
 
-{% else %}
+  <br />
+  <br />
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
+  <br />
+  <br />
+</body>
 
-<a href="{% url 'signupuser' %}" method="POST">Sign Up</a>
-<a href="{% url 'loginuser' %}" method="POST">Login</a>
-
-
-{% endif %}
-<br />
-<br />
-
-{% block content %}{% endblock %}
+</html>

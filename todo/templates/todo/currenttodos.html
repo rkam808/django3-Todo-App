@@ -1,9 +1,9 @@
 {% extends 'todo/base.html' %}
 
 {% block content %}
-Current
-
-<ul>
+<h1>Your Current Todo's:</h1>
+<br />
+<ul class="todolist">
   {% for todo in todos %}
   <li>
     <a href="{% url 'viewtodo' todo.id %}">
@@ -11,7 +11,8 @@ Current
       {{ todo.title }}
     {% if todo.important %}</b>{% endif %}
     {% if todo.memo %}
-     - {{ todo.memo }}
+      <br />
+      {{ todo.memo }}
     {% endif %}
     </a>
   </li>

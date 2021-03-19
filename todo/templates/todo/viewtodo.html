@@ -10,17 +10,17 @@
 <form method="POST">
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit">Save</button>
+  <button type="submit" class="btn btn-outline-primary">Save</button>
 </form>
 
 <form method="POST" action={% url 'completetodo' todo.id %}>
   {% csrf_token %}
-  <button type="submit">Complete</button>
+  <button type="submit" class="btn btn-outline-success">Complete</button>
 </form>
 
 <form method="POST" action={% url 'deletetodo' todo.id %}>
   {% csrf_token %}
-  <button type="submit">Delete</button>
+  <button type="submit" class="btn btn-outline-danger">Delete</button>
 </form>
 
 {% endblock %}
